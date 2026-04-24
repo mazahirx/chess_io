@@ -97,7 +97,7 @@ http://localhost:3000
 
 ---
 
-## 📸 Demo (Optional)
+## 📸 Demo
 
 ![ScreenShots of Game](image.png)
 
