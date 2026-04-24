@@ -20,7 +20,7 @@ app.get('/', (req,res) =>{
 });
 
 io.on("connection",(uniqueSocket) =>{   //socket connection
-    console.log("connected");
+    // console.log("connected");
     
     if(!players.white){
         players.white = uniqueSocket.id;
