@@ -42,6 +42,27 @@ io.on("connection",(uniqueSocket) =>{   //socket connection
             delete player.black;
         }
     })
+
+    uniqueSocket.on("move",(move)=>{
+        try {
+            if(chess.turn() == "W" && uniqueSocket.id !== player.white ) return;
+            if(chess.turn() == "B" && uniqueSocket.id !== player.black ) return;
+            
+            const result = chess.move(move);
+
+            if(result){
+                currPlayer = chess.turn();
+                io.emit("move",move);
+                io.emit("boardState",chess.fen());
+            }else{
+                console.log("Something went wrong ! ");
+                uniqueSocket.emit("Invalid Move : ",move);
+            }
+        } catch (err) {
+            console.log(err);
+            uniqueSocket.emit("Invalid Move : ", move);
+        }
+    })
 })
 
 server.listen(3000);
