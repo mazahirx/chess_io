@@ -1,3 +1,4 @@
+
 const socket = io();
 const chess = new Chess();
 
@@ -66,12 +67,14 @@ const renderBoard = () =>{
     });
 }
 
-const handleMove = (source,targer) =>{
+const handleMove = (source,target) =>{
     const move = {
         from: `${String.fromCharCode(97 + source.col)}${8 - source.row}`,
         to:`${String.fromCharCode(97 + target.col)}${8 - target.row}` ,
         promotion: "q",
     };
+
+    socket.emit("move", move);
 }
 
 const getPieceUnicode = (piece) =>{
@@ -95,4 +98,23 @@ const getPieceUnicode = (piece) =>{
     return piece.color === "w" ? unicode.toUpperCase() : unicode;
 }
 
+socket.on("playerRole",(role)=>{
+    playerRole = role;
+    renderBoard();
+});
+
+socket.on("spectator",()=>{
+    playerRole = null;
+    renderBoard();
+});
+
+socket.on("boardState",(fen)=>{
+    chess.load(fen);
+    renderBoard();
+});
+
+socket.on("move",(move)=>{
+    chess.move(move);
+    renderBoard();
+});
 renderBoard();

@@ -10,7 +10,7 @@ const io = socket(server);
 
 const chess = new Chess;
 let players = {};
-let currPlayer = 'W';
+let currPlayer = 'w';
 
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname,'public')));
@@ -20,33 +20,33 @@ app.get('/', (req,res) =>{
 });
 
 io.on("connection",(uniqueSocket) =>{   //socket connection
-    // console.log("connected");
+    console.log("connected");
     
     if(!players.white){
         players.white = uniqueSocket.id;
-        uniqueSocket.emit("playerRole","W");
+        uniqueSocket.emit("playerRole","w");
     }
     else if(!players.black){
         players.black = uniqueSocket.id;
-        uniqueSocket.emit("playerRole","B");
+        uniqueSocket.emit("playerRole","b");
     }
     else{
-        uniqueSocket.emit("Spectator");
+        uniqueSocket.emit("spectator");
     }
 
-    uniqueSocket.on("disconnet",()=>{
-        if(uniqueSocket.id == player.white){
-            delete player.white;
+    uniqueSocket.on("disconnect",()=>{
+        if(uniqueSocket.id == players.white){
+            delete players.white;
         }
-        else if(uniqueSocket.id == player.black){
-            delete player.black;
+        else if(uniqueSocket.id == players.black){
+            delete players.black;
         }
     })
 
     uniqueSocket.on("move",(move)=>{
         try {
-            if(chess.turn() == "W" && uniqueSocket.id !== player.white ) return;
-            if(chess.turn() == "B" && uniqueSocket.id !== player.black ) return;
+            if(chess.turn() == "w" && uniqueSocket.id !== players.white ) return;
+            if(chess.turn() == "b" && uniqueSocket.id !== players.black ) return;
             
             const result = chess.move(move);
 
