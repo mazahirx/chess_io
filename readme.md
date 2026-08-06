@@ -123,7 +123,7 @@ http://localhost:3000
 * No undo functionality
 * No key movements 
 * Pawn Selection 
-
+* Score update
 ---
 
 ## 🤝 Contributing
