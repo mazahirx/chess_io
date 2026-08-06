@@ -120,6 +120,7 @@ http://localhost:3000
 * Unicode chess pieces may render differently across browsers
 * No move highlighting yet
 * No undo functionality
+* No key movements 
 
 ---
 
