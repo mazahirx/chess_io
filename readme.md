@@ -92,6 +92,7 @@ http://localhost:3000
 * Moves are:
 
   * Sent to server via Socket.IO
+  * Receive via local webhook
   * Validated using chess.js
   * Broadcasted to all clients
 
