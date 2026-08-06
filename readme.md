@@ -122,6 +122,7 @@ http://localhost:3000
 * No move highlighting yet
 * No undo functionality
 * No key movements 
+* Pawn Selection 
 
 ---
 
